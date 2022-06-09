@@ -22,6 +22,9 @@ class User extends Authenticatable
         'email',
         'password',
         'unimas_id',
+        'role',
+        'faculty',
+        'mobileNum'
     ];
 
     /**
