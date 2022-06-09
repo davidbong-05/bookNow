@@ -195,6 +195,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * For Login via unimas identity...
+         */
+        \SocialiteProviders\Manager\ServiceProvider::class,
+
     ],
 
     /*

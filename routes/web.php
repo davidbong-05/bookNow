@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//UNIMAS Identity
+Route::get('auth/unimas_identity', [App\Http\Controllers\SocialiteUNIMASIdentityController::class, 'redirectToUNIMASIdentity']);
+Route::get('auth/unimas_identity/callback', [App\Http\Controllers\SocialiteUNIMASIdentityController::class, 'UNIMASIdentitySignIn']);
