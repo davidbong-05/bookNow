@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<x-master>
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-md-8">
@@ -16,8 +14,9 @@
                                     class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
-                                        name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                    <input id="email" type="email"
+                                        class="form-control @error('email') is-invalid @enderror" name="email"
+                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
 
                                     @error('email')
                                         <span class="invalid-feedback" role="alert">
@@ -84,4 +83,4 @@
             </div>
         </div>
     </div>
-@endsection
+</x-master>
