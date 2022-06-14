@@ -82,7 +82,7 @@
             </nav>
         </header>
 
-        <main id="app">
+        <main>
             {{ $slot }}
         </main>
     </div>
