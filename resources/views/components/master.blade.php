@@ -23,7 +23,7 @@
 </head>
 
 <body style="min-height: 100vh">
-    <div id=" app">
+    <div id="app">
         <header>
             <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div class="container">
