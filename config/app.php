@@ -200,6 +200,10 @@ return [
          */
         \SocialiteProviders\Manager\ServiceProvider::class,
 
+        /*
+         * For Cloudinary
+         */
+        CloudinaryLabs\CloudinaryLaravel\CloudinaryServiceProvider::class,
     ],
 
     /*

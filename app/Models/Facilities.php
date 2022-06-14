@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use App\Traits\hasRating;
-// use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
+use CloudinaryLabs\CloudinaryLaravel\MediaAlly;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +12,7 @@ class Facilities extends Model
 {
     use HasFactory;
     // use hasRating;
-    // use MediaAlly;
+    use MediaAlly;
 
     protected $fillable = [
         'name',
