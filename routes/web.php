@@ -46,3 +46,5 @@ Route::middleware('auth')->group(function () {
     //     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
     // });
 });
+
+Route::post('/enquiry-mail', [App\Http\Controllers\EnquiriesController::class, 'store']);
