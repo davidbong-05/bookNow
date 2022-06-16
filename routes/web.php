@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes(['register' => false]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/facility/{facility:name}', [App\Http\Controllers\FacilitiesController::class, 'show'])->name('facility.show');
 
 //UNIMAS Identity
 Route::get('auth/unimas_identity', [App\Http\Controllers\SocialiteUNIMASIdentityController::class, 'redirectToUNIMASIdentity']);
