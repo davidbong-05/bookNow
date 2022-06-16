@@ -25,6 +25,6 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('submit-booking', [\App\Policies\BookingPolicy::class, 'create']);
     }
 }
