@@ -1,21 +1,12 @@
 <x-master>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        <example-component />
-                    </div>
-                </div>
-            </div>
+    <div class="container-fluid">
+        <div class="row">
+            <announcements-big bg-img-url="{{ asset('/img/background.jpg') }}"></announcements-big>
+        </div>
+        <div class="row" id="facilities">
+            @include('_facilities')
         </div>
     </div>
+    <contact-us></contact-us>
+
 </x-master>
