@@ -21,12 +21,22 @@
                     </div>
                     <div class="col-lg-4">
                         {{-- use 2 if cuz some court shoult not have button by default --}}
+
                         @if ($facility->courts->count() != 0)
-                            @can('submit-booking')
-                                <book-button :status='0'></book-button>
-                            @else
+                            @guest
                                 <book-button :status='1'></book-button>
-                            @endcan
+                            @endguest
+                            @auth
+                                @can('submit-booking')
+                                    <book-button :status='0'></book-button>
+                                @else
+                                    @if ($user->freshBooking()->isNotEmpty())
+                                        <book-button :status='2'></book-button>
+                                    @elseif (Carbon::now()->format('D') == 'Fri' || Carbon::now()->format('D') == 'Sat' || Carbon::now()->format('D') == 'Sun')
+                                        <book-button :status='3'></book-button>
+                                    @endif
+                                @endcan
+                            @endauth
                         @endif
                     </div>
                 </div>

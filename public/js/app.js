@@ -23074,25 +23074,29 @@ __webpack_require__.r(__webpack_exports__);
       return {
         disabled: false,
         title: "Click here to Book Now!",
-        color: "btn-primary"
+        color: "btn-primary",
+        route: "/"
       };
     } else if (this.status == 1) {
       return {
         disabled: true,
         title: "Please log in first",
-        color: "btn-secondary"
+        color: "btn-secondary",
+        route: "/login"
       };
     } else if (this.status == 2) {
       return {
         disabled: true,
         title: "Oops, it seems like you already reached your booking limit",
-        color: "btn-secondary"
+        color: "btn-secondary",
+        route: "#"
       };
     } else if (this.status == 3) {
       return {
         disabled: true,
         title: "Please come back on Monday",
-        color: "btn-secondary"
+        color: "btn-secondary",
+        route: "#"
       };
     }
   }
@@ -23395,11 +23399,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = ["title"];
+var _hoisted_1 = ["href", "title"];
 var _hoisted_2 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-    href: "{{ route('booking.create', $facility->id) }}",
+    href: _ctx.route,
     "data-bs-toggle": "tooltip",
     "data-bs-placement": "bottom",
     title: _ctx.title
