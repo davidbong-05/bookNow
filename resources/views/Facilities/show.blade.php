@@ -28,7 +28,7 @@
                             @endguest
                             @auth
                                 @can('submit-booking')
-                                    <book-button :status='0'></book-button>
+                                    <book-button :status='0' :facility-id="{{ $facility->id }}"></book-button>
                                 @else
                                     @if ($user->freshBooking()->isNotEmpty())
                                         <book-button :status='2'></book-button>

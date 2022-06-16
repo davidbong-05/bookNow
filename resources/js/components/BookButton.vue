@@ -11,7 +11,8 @@
 
 export default {
     props: [
-        'status'
+        'status',
+        'facilityId'
     ],
     data() {
         if(this.status == 0){
@@ -19,7 +20,7 @@ export default {
                 disabled: false,
                 title: "Click here to Book Now!",
                 color: "btn-primary",
-                route: "/"
+                route: "/facility/"+this.facilityId+"/book-form"
             };
         }
         else if (this.status == 1) {
