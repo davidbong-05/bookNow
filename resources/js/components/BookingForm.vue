@@ -16,7 +16,8 @@
                 <div class="row">
                     <div class="col-3"><label class="form-label">Select Court:</label></div>
                     <div class="col-9">
-                        <select class="form-control" id="court" name="courts_id" required v-model="selectedCourt">
+                        <select class="form-control" :class="error['selectCourt']" id="court" name="courts_id"
+                            @change="buildSlotField()" v-model="selectedCourt">
                             <option value="" disabled>
                                 -- select court --
                             </option>
@@ -25,7 +26,7 @@
                             </option>
                         </select>
                     </div>
-                    <small id="courtErr"></small>
+                    <small class="text-center" v-show="error['selectCourtMsg']">{{ error['selectCourtMsg'] }}</small>
                 </div>
                 <!-- /row -->
                 <br />
@@ -35,7 +36,10 @@
                 </div>
 
                 <!-- Calendar -->
-                <div id="slot"></div>
+                {{ selectedCourt }}
+                <div v-for="booked in bookedArr">{{ booked.id }}</div>
+                <select-slot-field v-if="selectedCourt!=''" :pendingArr="pendingArr" :bookedArr="bookedArr">
+                </select-slot-field>
 
                 <div class="row indicator justify-content-end">
                     <div class='box red ms-2 me-2'></div> Not Available
@@ -91,10 +95,11 @@
                         <label class="form-label">Booking Purpose: </label>
                     </div>
                     <div class="col-9">
-                        <input class="form-control" id="remark" name="remark" type="text"
-                            placeholder="e.g. Club Activity" required v-model="bookingPurpose">
+                        <input class="form-control" :class="error['bookingPurpose']" id="remark" name="remark"
+                            type="text" placeholder="e.g. Club Activity" required v-model="bookingPurpose">
                     </div>
-                    <small id="remarkErr"></small>
+                    <small class="text-center" v-show="error['bookingPurposeMsg']">{{ error['bookingPurposeMsg']
+                        }}</small>
                 </div>
             </div>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"
@@ -188,12 +193,12 @@
                 </div>
 
                 <div class="row mb-2">
-                    <div class="tc">
-                        <input type="checkbox" name="tnc" id="tnc" value="agree" placeholder="I Agree" required
-                            v-model="tnc">
-                        <label for="tnc">I Agree to <a href='#'>Terms & Conditions</a></label>
+                    <div class="text-center">
+                        <input type="checkbox" :class="error['tnc']" name="tnc" id="tnc" value="agree"
+                            placeholder="I Agree" required v-model="tnc">
+                        <label class="ms-2" for="tnc">I Agree to <a href='#'>Terms & Conditions</a></label>
                     </div>
-                    <small id="tncErr"></small>
+                    <small class="text-center" v-show="error['tncMsg']">{{ error['tncMsg'] }}</small>
                 </div>
             </div>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"
@@ -203,13 +208,15 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+import SelectSlotField from './SelectSlotField.vue'
 export default {
     props:[
         'user',
         'courts'
     ],
     components: {
+        SelectSlotField
     },
     setup(props){
         const step = ref(1)
@@ -223,48 +230,79 @@ export default {
         const bookingPurpose = ref('')
         const tnc = ref(false)
 
+        const error = reactive({})
+
+        const pendingArr = reactive({})
+        const bookedArr = reactive({})
+
+        function buildSlotField(){
+
+            axios.post('/api/bookings/pending', { id: selectedCourt.value[0] }
+            ).then(res => {
+                this.pendingArr=res.data
+            }).catch((error) => {
+                console.log('Looks like there was a problem: \n', error);
+            });
+
+            axios.post('/api/bookings/booked', { id: selectedCourt.value[0] }
+            ).then(res => {
+                this.bookedArr=res.data
+            }).catch((error) => {
+                console.log('Looks like there was a problem: \n', error);
+            });
+        }
+
         function submit() {
-            axios.post('/facility/book', {
-                name: name,
-                email: email.value,
-                subject: subject,
-                message: message.text,
-            }).then()
-        }
-        function error(field) {
-            if (field.error == true) {
-                return true
-            }
-            else {
-                return false
+            if(tnc==false){
+                error['tnc'] = 'is-invalid';
+                error['tncMsg'] = 'Must select a court';
+            }else{
+                axios.post('/facility/book', {
+                    name: name,
+                    email: email.value,
+                    subject: subject,
+                    message: message.text,
+                }).then()
             }
         }
+
         function step1() {
-            selectedCourt.error=true;
             step.value = 1;
         }
+
         function step2() {
-            step.value = 2;
+            if(selectedCourt.value === ''){
+                error['selectCourt'] = 'is-invalid';
+                error['selectCourtMsg'] = 'Must select a court';
+            }
+            else {
+                error['selectCourt'] = 'is-valid';
+                error['selectCourtMsg'] = null;
+                step.value=2;
+            }
         }
         function step3() {
-            step.value = 3;
+            if (bookingPurpose.value === '') {
+                error['bookingPurpose'] = 'is-invalid';
+                error['bookingPurposeMsg'] = 'Must input a booking purpose';
+            }
+            else {
+                error['bookingPurpose'] = 'is-valid';
+                error['bookingPurposeMsg'] = null;
+                step.value = 3;
+            }
         }
         return{
             step,
-            id,
-            name,
-            email,
-            faculty,
-            mobile,
-            selectedCourt,
-            selectedSlot,
-            bookingPurpose,
-            tnc,
+            id,name,email,faculty,mobile,
+            selectedCourt,selectedSlot,bookingPurpose,tnc,
             submit,
             step1,
             step2,
             step3,
             error,
+            buildSlotField,pendingArr, bookedArr
+
         }
     }
 }
@@ -400,25 +438,66 @@ export default {
     margin: 10px 5px;
 }
 
-#msform .tc {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 0.2em;
-}
-
-#msform .tc input,
-#msform .tc label {
-    margin: 0;
-}
-
-#msform .tc input {
-    width: 10%;
-}
-
 #msform .big {
     text-transform: uppercase !important;
     font-weight: 900px;
+}
+
+#msform small{
+    color: crimson;
+    animation: shake 0.8s;
+    animation-iteration-count: 1;
+}
+
+#msform fieldset .booked,
+.red {
+    background-color: #dc3545;
+}
+
+#msform fieldset .pending,
+.yellow {
+    background-color: #ffc107;
+}
+
+#msform fieldset .green {
+    background-color: #28a745;
+}
+
+.indicator {
+    font-weight: lighter;
+    color: #616161;
+}
+
+.box {
+    height: 1em;
+    width: 1.5em;
+    margin-top: 0.3em;
+    border: 1px solid black;
+    border-radius: 2px;
+    clear: both;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }
 </style>

@@ -30,9 +30,9 @@
                                 @can('submit-booking')
                                     <book-button :status='0' :facility-id="{{ $facility->id }}"></book-button>
                                 @else
-                                    @if ($user->freshBooking()->isNotEmpty())
+                                    @if (current_user()->freshBooking()->isNotEmpty())
                                         <book-button :status='2'></book-button>
-                                    @elseif (Carbon::now()->format('D') == 'Fri' || Carbon::now()->format('D') == 'Sat' || Carbon::now()->format('D') == 'Sun')
+                                    @elseif (Carbon\Carbon::now()->format('D') == 'Fri' || Carbon\Carbon::now()->format('D') == 'Sat' || Carbon\Carbon::now()->format('D') == 'Sun')
                                         <book-button :status='3'></book-button>
                                     @endif
                                 @endcan
