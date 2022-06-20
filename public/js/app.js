@@ -23136,8 +23136,8 @@ __webpack_require__.r(__webpack_exports__);
     var bookingPurpose = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var tnc = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({});
-    var pendingArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({});
-    var bookedArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({});
+    var pendingArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var bookedArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
 
     function buildSlotField() {
       var _this = this;
@@ -23332,34 +23332,99 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['pendingArr', 'bookedArr'],
-  setup: function setup() {
-    var newDate = moment__WEBPACK_IMPORTED_MODULE_0___default()().add(1, 'w');
+  setup: function setup(props) {
+    var newDate = moment__WEBPACK_IMPORTED_MODULE_1___default()().add(1, 'w');
     var week = newDate.format('w of YYYY');
     var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'];
     var slots = ['10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '17:00', '18:00', '19:00', '20:00'];
+    var pendingArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRef)(props, 'pendingArr');
+    var bookedArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRef)(props, 'bookedArr');
+    var pendingDate = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var bookedDate = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var checkedSlot = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
 
     function getDate(day) {
-      return moment__WEBPACK_IMPORTED_MODULE_0___default()().day(day).add(1, 'w').format('DD/MM');
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()().day(day).add(1, 'w').format('DD/MM');
     }
 
-    function checkSlot(day, slot) {// props.bookedArr.some(function (day, slot) {
-      //     if (props.bookedArr.date == day && props.bookedArr.time == slot ){
-      //         return 'booked'
-      //     }
-      // })
+    function getDate2(day) {
+      return moment__WEBPACK_IMPORTED_MODULE_1___default()().day(day).add(1, 'w').format('YYYY-MM-DD');
+    }
+
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(pendingArr, function (newPendingArr) {
+      pendingDate.value = getPending();
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(bookedArr, function (newBookedArr) {
+      bookedDate.value = getBooked();
+    });
+
+    function getPending() {
+      var pending = [];
+
+      if (pendingArr.value != '') {
+        Object.keys(pendingArr.value).forEach(function (key) {
+          pending.push(pendingArr.value[key].date + pendingArr.value[key].time);
+        });
+      }
+
+      return pending;
+    }
+
+    function getBooked() {
+      var booked = [];
+
+      if (bookedArr.value != '') {
+        Object.keys(bookedArr.value).forEach(function (key) {
+          booked.push(bookedArr.value[key].date + bookedArr.value[key].time);
+        });
+      }
+
+      return booked;
+    }
+
+    function checkSlot(date, slot) {
+      var check = date + slot + ':00';
+
+      if (bookedDate.value.includes(check)) {
+        return 'booked';
+      } else if (pendingDate.value.includes(check)) {
+        return 'pending';
+      } else return 'empty';
+    }
+
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(checkedSlot, function (newCheckedSlot) {
+      if (checkedSlot.value.length > 0) {
+        console.log('full');
+        checkedSlot.value.splice(1);
+      }
+    });
+
+    function isCheck(date, time) {
+      if (checkedSlot.value.length > 0) {
+        if (checkedSlot.value[0].date == date && checkedSlot.value[0].time == time) {
+          return 'green';
+        }
+      }
     }
 
     return {
+      pendingDate: pendingDate,
+      bookedDate: bookedDate,
       week: week,
       days: days,
       getDate: getDate,
+      getDate2: getDate2,
       slots: slots,
-      checkSlot: checkSlot
+      checkSlot: checkSlot,
+      checkedSlot: checkedSlot,
+      isCheck: isCheck
     };
   }
 });
@@ -23693,11 +23758,11 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "row indicator justify-content-end"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "box red ms-2 me-2"
+    "class": "box booked ms-2 me-2"
   }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Not Available "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "box yellow ms-2 me-2"
+    "class": "box pending ms-2 me-2"
   }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Pending "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "box white ms-2 me-2"
+    "class": "box empty ms-2 me-2"
   }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Available ")], -1
   /* HOISTED */
   );
@@ -24061,13 +24126,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* TEXT, NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.error['selectCourtMsg']]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /row "), _hoisted_15, _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Calendar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedCourt) + " ", 1
   /* TEXT */
-  ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.bookedArr, function (booked) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(booked.id), 1
-    /* TEXT */
-    );
-  }), 256
-  /* UNKEYED_FRAGMENT */
-  )), $setup.selectedCourt != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_select_slot_field, {
+  ), $setup.selectedCourt != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_select_slot_field, {
     key: 0,
     pendingArr: $setup.pendingArr,
     bookedArr: $setup.bookedArr
@@ -24505,10 +24564,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865":
-/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865 ***!
-  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -24518,6 +24577,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+
+var _withScopeId = function _withScopeId(n) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-55d52865"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n;
+};
+
 var _hoisted_1 = {
   "class": "col-9 ms-4"
 };
@@ -24525,33 +24589,34 @@ var _hoisted_2 = {
   "class": "ms-2 me-5"
 };
 var _hoisted_3 = {
-  "class": "table table-bordered text-center"
+  "class": "table table-bordered text-center",
+  id: "slot"
 };
 var _hoisted_4 = {
   "class": "table-light"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Slot", -1
-/* HOISTED */
-);
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Slot", -1
+  /* HOISTED */
+  );
+});
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
+var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+  /* HOISTED */
+  );
+});
 
 var _hoisted_7 = {
   "class": "table-light"
 };
+var _hoisted_8 = ["for"];
+var _hoisted_9 = ["value", "id"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_2, "Week " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.week), 1
   /* TEXT */
-  ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.bookedArr, function (booked) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(booked.id), 1
-    /* TEXT */
-    );
-  }), 256
-  /* UNKEYED_FRAGMENT */
-  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_5, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.days, function (day) {
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [_hoisted_5, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.days, function (day) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("th", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(day), 1
     /* TEXT */
     ), _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.getDate(day)), 1
@@ -24562,7 +24627,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.slots, function (slot) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(slot), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <td v-for=\"day in days\" :class=\"checkSlot(day,slot)\">{{ checkSlot(day, slot) }}</td> ")]);
+    ), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.days, function (day) {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", {
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($setup.checkSlot($setup.getDate2(day), slot))
+      }, [$setup.checkSlot($setup.getDate2(day), slot) == 'empty' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("label", {
+        key: 0,
+        "for": $setup.getDate2(day) + slot,
+        "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)($setup.isCheck($setup.getDate2(day), slot))
+      }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+        type: "checkbox",
+        value: {
+          date: $setup.getDate2(day),
+          time: slot
+        },
+        id: $setup.getDate2(day) + slot,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return $setup.checkedSlot = $event;
+        })
+      }, null, 8
+      /* PROPS */
+      , _hoisted_9), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelCheckbox, $setup.checkedSlot]])], 10
+      /* CLASS, PROPS */
+      , _hoisted_8)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" @click=\"tick(getDate2(day) + slot)\" ")], 2
+      /* CLASS */
+      );
+    }), 256
+    /* UNKEYED_FRAGMENT */
+    ))]);
   }), 256
   /* UNKEYED_FRAGMENT */
   ))])])], 64
@@ -34750,7 +34841,31 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#msform[data-v-9a61edbc] {\n    text-align: center;\n    position: relative;\n    margin-top: 10px;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    border-radius: 0px;\n    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);\n    padding: 20px 40px 30px 40px;\n    box-sizing: border-box;\n    width: 94%;\n    margin: 0 3% 20px 3%;\n    position: relative;\n}\n#msform fieldset[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    box-sizing: border-box;\n    width: 100%;\n    margin: 0;\n    padding-bottom: 20px;\n    position: relative;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    text-align: left;\n    color: #000000;\n    font-weight: 700;\n}\n#progressbar[data-v-9a61edbc] {\n    margin-bottom: 30px;\n    overflow: hidden;\n    color: lightgrey;\n}\n#progressbar .active[data-v-9a61edbc] {\n    color: #000000;\n}\n#progressbar li[data-v-9a61edbc] {\n    list-style-type: none;\n    font-size: 12px;\n    width: 25%;\n    float: left;\n    position: relative;\n}\n#progressbar #date[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f073\";\n}\n#progressbar #contact[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f007\";\n}\n#progressbar #confirmation[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f15c\";\n}\n#progressbar #finish[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f00c\";\n}\n#progressbar li[data-v-9a61edbc]:before {\n    width: 50px;\n    height: 50px;\n    line-height: 45px;\n    display: block;\n    font-size: 18px;\n    color: #ffffff;\n    background: lightgray;\n    border-radius: 50%;\n    margin: 0 auto 10px auto;\n    padding: 2px;\n}\n#progressbar li[data-v-9a61edbc]:after {\n    content: \"\";\n    width: 100%;\n    height: 2px;\n    background: lightgray;\n    position: absolute;\n    left: 0;\n    top: 25px;\n    z-index: -1;\n}\n#progressbar li.active[data-v-9a61edbc]:before,\n#progressbar li.active[data-v-9a61edbc]:after {\n    background: #ff0063;\n}\n#msform .action-button[data-v-9a61edbc] {\n    width: 100px;\n    background: #ff0063;\n    font: inherit;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .action-button[data-v-9a61edbc]:hover,\n#msform .action-button[data-v-9a61edbc]:focus {\n    box-shadow: 0 0 0 2px white, 0 0 0 3px #ff0063;\n}\n#msform .action-button-previous[data-v-9a61edbc] {\n    width: 100px;\n    background: #444444;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .big[data-v-9a61edbc] {\n    text-transform: uppercase !important;\n    font-weight: 900px;\n}\n#msform small[data-v-9a61edbc]{\n    color: crimson;\n    -webkit-animation: shake-9a61edbc 0.8s;\n            animation: shake-9a61edbc 0.8s;\n    -webkit-animation-iteration-count: 1;\n            animation-iteration-count: 1;\n}\n#msform fieldset .booked[data-v-9a61edbc],\n.red[data-v-9a61edbc] {\n    background-color: #dc3545;\n}\n#msform fieldset .pending[data-v-9a61edbc],\n.yellow[data-v-9a61edbc] {\n    background-color: #ffc107;\n}\n#msform fieldset .green[data-v-9a61edbc] {\n    background-color: #28a745;\n}\n.indicator[data-v-9a61edbc] {\n    font-weight: lighter;\n    color: #616161;\n}\n.box[data-v-9a61edbc] {\n    height: 1em;\n    width: 1.5em;\n    margin-top: 0.3em;\n    border: 1px solid black;\n    border-radius: 2px;\n    clear: both;\n}\n@-webkit-keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n@keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#msform[data-v-9a61edbc] {\n    text-align: center;\n    position: relative;\n    margin-top: 10px;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    border-radius: 0px;\n    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);\n    padding: 20px 40px 30px 40px;\n    box-sizing: border-box;\n    width: 94%;\n    margin: 0 3% 20px 3%;\n    position: relative;\n}\n#msform fieldset[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    box-sizing: border-box;\n    width: 100%;\n    margin: 0;\n    padding-bottom: 20px;\n    position: relative;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    text-align: left;\n    color: #000000;\n    font-weight: 700;\n}\n#progressbar[data-v-9a61edbc] {\n    margin-bottom: 30px;\n    overflow: hidden;\n    color: lightgrey;\n}\n#progressbar .active[data-v-9a61edbc] {\n    color: #000000;\n}\n#progressbar li[data-v-9a61edbc] {\n    list-style-type: none;\n    font-size: 12px;\n    width: 25%;\n    float: left;\n    position: relative;\n}\n#progressbar #date[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f073\";\n}\n#progressbar #contact[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f007\";\n}\n#progressbar #confirmation[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f15c\";\n}\n#progressbar #finish[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f00c\";\n}\n#progressbar li[data-v-9a61edbc]:before {\n    width: 50px;\n    height: 50px;\n    line-height: 45px;\n    display: block;\n    font-size: 18px;\n    color: #ffffff;\n    background: lightgray;\n    border-radius: 50%;\n    margin: 0 auto 10px auto;\n    padding: 2px;\n}\n#progressbar li[data-v-9a61edbc]:after {\n    content: \"\";\n    width: 100%;\n    height: 2px;\n    background: lightgray;\n    position: absolute;\n    left: 0;\n    top: 25px;\n    z-index: -1;\n}\n#progressbar li.active[data-v-9a61edbc]:before,\n#progressbar li.active[data-v-9a61edbc]:after {\n    background: #ff0063;\n}\n#msform .action-button[data-v-9a61edbc] {\n    width: 100px;\n    background: #ff0063;\n    font: inherit;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .action-button[data-v-9a61edbc]:hover,\n#msform .action-button[data-v-9a61edbc]:focus {\n    box-shadow: 0 0 0 2px white, 0 0 0 3px #ff0063;\n}\n#msform .action-button-previous[data-v-9a61edbc] {\n    width: 100px;\n    background: #444444;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .big[data-v-9a61edbc] {\n    text-transform: uppercase !important;\n    font-weight: 900px;\n}\n#msform small[data-v-9a61edbc]{\n    color: crimson;\n    -webkit-animation: shake-9a61edbc 0.8s;\n            animation: shake-9a61edbc 0.8s;\n    -webkit-animation-iteration-count: 1;\n            animation-iteration-count: 1;\n}\n#msform fieldset .booked[data-v-9a61edbc] {\n    background-color: #dc3545;\n}\n#msform fieldset .pending[data-v-9a61edbc] {\n    background-color: #ffc107;\n}\n.indicator[data-v-9a61edbc] {\n    font-weight: lighter;\n    color: #616161;\n}\n.box[data-v-9a61edbc] {\n    height: 1em;\n    width: 1.5em;\n    margin-top: 0.3em;\n    border: 1px solid black;\n    border-radius: 2px;\n    clear: both;\n}\n@-webkit-keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n@keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.table tbody tr *[data-v-55d52865]{\n    padding: 0 !important;\n    height: 2em;\n}\n#slot label[data-v-55d52865] {\n    display: block;\n    height: 100%;\n}\n#slot input[data-v-55d52865] {\n    opacity: 0;\n}\n#slot .booked[data-v-55d52865] {\n    background-color: #dc3545;\n}\n#slot .pending[data-v-55d52865] {\n    background-color: #ffc107;\n}\n#slot .green[data-v-55d52865] {\n    background-color: #28a745;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -73872,6 +73987,36 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_style_index_0_id_55d52865_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_style_index_0_id_55d52865_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_style_index_0_id_55d52865_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js":
 /*!****************************************************************************!*\
   !*** ./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js ***!
@@ -74383,15 +74528,18 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _SelectSlotField_vue_vue_type_template_id_55d52865__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SelectSlotField.vue?vue&type=template&id=55d52865 */ "./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865");
+/* harmony import */ var _SelectSlotField_vue_vue_type_template_id_55d52865_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true */ "./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true");
 /* harmony import */ var _SelectSlotField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectSlotField.vue?vue&type=script&lang=js */ "./resources/js/components/SelectSlotField.vue?vue&type=script&lang=js");
-/* harmony import */ var E_bookNow_V2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _SelectSlotField_vue_vue_type_style_index_0_id_55d52865_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css */ "./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css");
+/* harmony import */ var E_bookNow_V2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,E_bookNow_V2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SelectSlotField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SelectSlotField_vue_vue_type_template_id_55d52865__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/SelectSlotField.vue"]])
+
+
+const __exports__ = /*#__PURE__*/(0,E_bookNow_V2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_SelectSlotField_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SelectSlotField_vue_vue_type_template_id_55d52865_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-55d52865"],['__file',"resources/js/components/SelectSlotField.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -74640,18 +74788,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865 ***!
-  \***********************************************************************************/
+/***/ "./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true":
+/*!***********************************************************************************************!*\
+  !*** ./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true ***!
+  \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_template_id_55d52865__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_template_id_55d52865_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_template_id_55d52865__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectSlotField.vue?vue&type=template&id=55d52865 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_template_id_55d52865_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=template&id=55d52865&scoped=true");
 
 
 /***/ }),
@@ -74665,6 +74813,19 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_BookingForm_vue_vue_type_style_index_0_id_9a61edbc_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./BookingForm.vue?vue&type=style&index=0&id=9a61edbc&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/BookingForm.vue?vue&type=style&index=0&id=9a61edbc&scoped=true&lang=css");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css":
+/*!*************************************************************************************************************!*\
+  !*** ./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css ***!
+  \*************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_SelectSlotField_vue_vue_type_style_index_0_id_55d52865_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/SelectSlotField.vue?vue&type=style&index=0&id=55d52865&scoped=true&lang=css");
 
 
 /***/ }),

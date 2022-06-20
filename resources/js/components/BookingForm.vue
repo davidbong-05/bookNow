@@ -37,14 +37,13 @@
 
                 <!-- Calendar -->
                 {{ selectedCourt }}
-                <div v-for="booked in bookedArr">{{ booked.id }}</div>
                 <select-slot-field v-if="selectedCourt!=''" :pendingArr="pendingArr" :bookedArr="bookedArr">
                 </select-slot-field>
 
                 <div class="row indicator justify-content-end">
-                    <div class='box red ms-2 me-2'></div> Not Available
-                    <div class='box yellow ms-2 me-2'></div> Pending
-                    <div class='box white ms-2  me-2'></div> Available
+                    <div class='box booked ms-2 me-2'></div> Not Available
+                    <div class='box pending ms-2 me-2'></div> Pending
+                    <div class='box empty ms-2  me-2'></div> Available
                 </div>
 
             </div>
@@ -232,8 +231,8 @@ export default {
 
         const error = reactive({})
 
-        const pendingArr = reactive({})
-        const bookedArr = reactive({})
+        const pendingArr = ref('')
+        const bookedArr = ref('')
 
         function buildSlotField(){
 
@@ -246,7 +245,7 @@ export default {
 
             axios.post('/api/bookings/booked', { id: selectedCourt.value[0] }
             ).then(res => {
-                this.bookedArr=res.data
+                this.bookedArr = res.data
             }).catch((error) => {
                 console.log('Looks like there was a problem: \n', error);
             });
@@ -449,18 +448,12 @@ export default {
     animation-iteration-count: 1;
 }
 
-#msform fieldset .booked,
-.red {
+#msform fieldset .booked {
     background-color: #dc3545;
 }
 
-#msform fieldset .pending,
-.yellow {
+#msform fieldset .pending {
     background-color: #ffc107;
-}
-
-#msform fieldset .green {
-    background-color: #28a745;
 }
 
 .indicator {
