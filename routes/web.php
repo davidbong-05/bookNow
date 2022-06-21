@@ -27,19 +27,17 @@ Route::get('auth/unimas_identity', [App\Http\Controllers\SocialiteUNIMASIdentity
 Route::get('auth/unimas_identity/callback', [App\Http\Controllers\SocialiteUNIMASIdentityController::class, 'UNIMASIdentitySignIn']);
 
 Route::middleware('auth')->group(function () {
-    Route::middleware('verified')->group(function () {
-        Route::get('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'show'])->name('profile.show');
-        Route::get('/profile/{user:id}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->middleware('can:edit,user');
-        Route::patch('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'update'])->middleware('can:edit,user');
+    Route::get('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'show'])->name('profile.show');
+    Route::get('/profile/{user:id}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->middleware('can:edit,user');
+    Route::patch('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'update'])->middleware('can:edit,user');
 
-        Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show');
-        Route::get('/facility/{facility:id}/book-form', [App\Http\Controllers\BookingsController::class, 'create'])->middleware('can:submit-booking,user')->name('booking.create');
-        Route::post('/facility/book', [App\Http\Controllers\BookingsController::class, 'store'])->name('booking.store');
+    Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show');
+    Route::get('/facility/{facility:id}/book-form', [App\Http\Controllers\BookingsController::class, 'create'])->middleware('can:submit-booking,user')->name('booking.create');
+    Route::post('/facility/book', [App\Http\Controllers\BookingsController::class, 'store'])->name('booking.store');
 
-        Route::delete('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'destroy'])->name('booking.destroy');
+    Route::delete('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'destroy'])->name('booking.destroy');
 
-        Route::post('/facility/{facility:id}/review', [App\Http\Controllers\ReviewsController::class, 'store'])->name('review.store');
-    });
+    Route::post('/facility/{facility:id}/review', [App\Http\Controllers\ReviewsController::class, 'store'])->name('review.store');
     // Route::middleware('admin')->group(function () {
 
     //     Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])->name('admin');
