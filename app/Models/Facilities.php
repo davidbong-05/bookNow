@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 
 class Facilities extends Model
 {
+    use \Backpack\CRUD\app\Models\Traits\CrudTrait;
     use HasFactory;
     // use hasRating;
     use MediaAlly;
