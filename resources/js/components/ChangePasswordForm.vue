@@ -43,6 +43,8 @@
 
 <script>
 import { ref,reactive,watch } from 'vue';
+import swal from 'sweetalert';
+
 export default {
     props: [
         'user_id'
@@ -105,14 +107,34 @@ export default {
         })
 
         function submit(){
-            axios.patch('/profile/'+props.user_id, {
-                password: this.password,
-                password_confirmation: this.confirm
-            }).then(res => {
-                console.log(res.data);
-            }).catch((error) => {
-                console.log('Looks like there was a problem: \n', error);
-            });
+            if (error['password'] == 'is-valid' && error['confirm'] == 'is-valid'){
+                swal({
+                    title: "Are you sure?",
+                    text: "Once confirmed, you will not be able to change back!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willChange) => {
+                    if (willChange) {
+                        axios.patch('/profile/' + props.user_id, {
+                            password: this.password,
+                            password_confirmation: this.confirm
+                        }).then(res => {
+                            swal("Password Changed", {
+                                icon: "success",
+                            });
+                            closeForm();
+                        }).catch((error) => {
+                            console.log('Looks like there was a problem: \n', error);
+                        });
+
+                    } else {
+                        swal("Nothing changed");
+                        closeForm();
+                    }
+                });
+            }
         }
 
         return {
