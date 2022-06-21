@@ -25,12 +25,6 @@ class BookingsController extends Controller
         return view('Bookings.create', compact('facility'));
     }
 
-    public function slot($id)
-    {
-        $court = Courts::find($id);
-        return view('Bookings.slot', compact('court'));
-    }
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -49,12 +43,7 @@ class BookingsController extends Controller
             'remark'    => $validated['remark'],
             'status'    => 'Pending',
         ]);
-        return redirect(route('booking.success'));
-    }
-
-    public function success()
-    {
-        return view('Bookings.success');
+        return current_user()->freshBooking()->first()->id;
     }
 
     public function destroy(Bookings $booking)

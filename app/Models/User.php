@@ -61,6 +61,7 @@ class User extends Authenticatable
                 return $query->where('status', 'Approved')
                     ->orWhere('status', 'Pending');
             })
+            ->latest()
             ->get();
     }
 

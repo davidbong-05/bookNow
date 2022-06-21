@@ -34,9 +34,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show');
         Route::get('/facility/{facility:id}/book-form', [App\Http\Controllers\BookingsController::class, 'create'])->middleware('can:submit-booking,user')->name('booking.create');
-        Route::get('/facility/{court_id}/book-slot', [App\Http\Controllers\BookingsController::class, 'slot']);
         Route::post('/facility/book', [App\Http\Controllers\BookingsController::class, 'store'])->name('booking.store');
-        Route::get('/booking_submitted', [App\Http\Controllers\BookingsController::class, 'success'])->name('booking.success');
 
         Route::delete('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'destroy'])->name('booking.destroy');
 

@@ -1,39 +1,48 @@
 <template>
-    <div class="col-9 ms-4">
-        <span class="ms-2 me-5">Week {{ week }} </span>
+    <div id="slot">
+
+        <div class="row">
+            <small class="text-center" v-show="error['selectSlot']">{{ error['selectSlotMsg'] }}</small>
+            <div class="col-9 ms-4">
+                <span class="ms-2 me-5">Week {{ week }} </span>
+            </div>
+        </div>
+
+        <table class="table table-bordered text-center">
+            <thead class="table-light">
+                <tr>
+                    <th>Slot</th>
+                    <th v-for="day in days">{{day}}<br>{{ getDate(day) }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="slot in slots">
+                    <th class="table-light">{{slot}}</th>
+                    <td v-for="day in days" :class="checkSlot(getDate2(day),slot)">
+                        <label v-if="checkSlot(getDate2(day), slot)=='empty'" :for="getDate2(day)+slot"
+                            :class='isCheck(getDate2(day), slot)'>
+                            <input type='checkbox' :value="{date:getDate2(day),time:slot}" :id="getDate2(day)+slot"
+                                v-model="checkedSlot" />
+                        </label>
+                        <!-- @click="tick(getDate2(day) + slot)" -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     </div>
-    <table class="table table-bordered text-center" id="slot">
-        <thead class="table-light">
-            <tr>
-                <th>Slot</th>
-                <th v-for="day in days">{{day}}<br>{{ getDate(day) }}</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="slot in slots">
-                <th class="table-light">{{slot}}</th>
-                <td v-for="day in days" :class="checkSlot(getDate2(day),slot)">
-                    <label v-if="checkSlot(getDate2(day), slot)=='empty'" :for="getDate2(day)+slot"
-                        :class='isCheck(getDate2(day), slot)'>
-                        <input type='checkbox' :value="{date:getDate2(day),time:slot}" :id="getDate2(day)+slot"
-                            v-model="checkedSlot" />
-                    </label>
-                    <!-- @click="tick(getDate2(day) + slot)" -->
-                </td>
-            </tr>
-        </tbody>
-    </table>
 </template>
 <script>
-import { toRef, ref, watch } from 'vue';
+import { toRef, ref, reactive,watch } from 'vue';
 import moment from 'moment';
 
 export default {
     props:[
         'pendingArr',
-        'bookedArr'
+        'bookedArr',
     ],
-    setup(props){
+    emits: ['update:modelValue'],
+    setup(props, {emit}){
 
         const newDate = moment().add(1, 'w')
         const week = newDate.format('w of YYYY')
@@ -45,6 +54,7 @@ export default {
         let bookedDate = ref ('')
 
         const checkedSlot = ref([])
+        const error = reactive({})
 
         function getDate(day) {
             return moment().day(day).add(1, 'w').format('DD/MM');
@@ -95,10 +105,17 @@ export default {
         }
 
         watch(checkedSlot, (newCheckedSlot) => {
-            if(checkedSlot.value.length>0){
-                console.log('full')
+            if(checkedSlot.value.length>1){
                 checkedSlot.value.splice(1)
+                error['selectSlot'] = 'is-invalid';
+                error['selectSlotMsg'] = 'Maximum 1 slot only';
+            }else{
+                error['selectSlot'] = 'is-valid';
+                error['selectSlotMsg'] = null;
             }
+
+            let value = checkedSlot.value;
+            emit('update:modelValue',value);
         })
 
         function isCheck(date,time){
@@ -113,7 +130,8 @@ export default {
             pendingDate, bookedDate,
             week, days, getDate,getDate2,
             slots, checkSlot,
-            checkedSlot,isCheck
+            checkedSlot,isCheck,
+            error
         }
     }
 }
@@ -141,5 +159,35 @@ export default {
 
 #slot .green {
     background-color: #28a745;
+}
+
+#slot .row small {
+    color: crimson;
+    animation: shake 0.8s;
+    animation-iteration-count: 1;
+}
+
+@keyframes shake {
+
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
 }
 </style>

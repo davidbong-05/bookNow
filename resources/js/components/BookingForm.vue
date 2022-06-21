@@ -32,12 +32,12 @@
                 <br />
                 <div class="row">
                     <div class="col-3"><label>Choose Your Slot: </label></div>
-                    <small id="slotErr"></small>
+                    <small class="text-center" v-show="error['selectSlot']">{{ error['selectSlotMsg'] }}</small>
                 </div>
 
                 <!-- Calendar -->
-                {{ selectedCourt }}
-                <select-slot-field v-if="selectedCourt!=''" :pendingArr="pendingArr" :bookedArr="bookedArr">
+                <select-slot-field v-if="selectedCourt!=''" :pendingArr="pendingArr" :bookedArr="bookedArr"
+                    v-model="selectedSlot">
                 </select-slot-field>
 
                 <div class="row indicator justify-content-end">
@@ -121,15 +121,13 @@
                     <div class="col-3">
                         <label class="form-label">Date: </label>
                     </div>
-                    <div class="col-9 big" id="c2"></div>
-                    <div id="inputDate"></div>
+                    <div class="col-9 big" v-if="selectedSlot!=''">{{ selectedSlot[0].date }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-3">
                         <label class="form-label">Choosen Slot: </label>
                     </div>
-                    <div class="col-9 big" id="c3"></div>
-                    <div id="inputSlot"></div>
+                    <div class="col-9 big" v-if="selectedSlot!=''">{{ selectedSlot[0].time }}</div>
                 </div>
                 <div class="row mb-2">
                     <div class="col-3">
@@ -203,6 +201,29 @@
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"
                 @click="step2()" /> <input type="submit" id="confirm" class="action-button" value="Confirm" />
         </fieldset>
+
+        <!--page 4-->
+        <fieldset v-show="step==4">
+            <div class="form-card">
+                <h2 class="fs-title text-center">Success !</h2> <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image">
+                    </div>
+                </div>
+                <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-7 text-center">
+                        <h5>We Will Process Your Request Soon</h5>
+                        <h6>Your Booking ID is
+                            #{{ bookingId }}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+            <a href="/">
+                <button type="button" class="btn btn-primary mb-4">Home</button>
+            </a>
+        </fieldset>
     </form>
 </template>
 
@@ -225,9 +246,10 @@ export default {
         const faculty = props.user.faculty
         const mobile = props.user.mobileNum
         const selectedCourt = ref('')
-        const selectedSlot = ref('')
+        const selectedSlot = ref([{date:'',time:''}])
         const bookingPurpose = ref('')
         const tnc = ref(false)
+        const bookingId = ref('')
 
         const error = reactive({})
 
@@ -251,20 +273,6 @@ export default {
             });
         }
 
-        function submit() {
-            if(tnc==false){
-                error['tnc'] = 'is-invalid';
-                error['tncMsg'] = 'Must select a court';
-            }else{
-                axios.post('/facility/book', {
-                    name: name,
-                    email: email.value,
-                    subject: subject,
-                    message: message.text,
-                }).then()
-            }
-        }
-
         function step1() {
             step.value = 1;
         }
@@ -277,6 +285,23 @@ export default {
             else {
                 error['selectCourt'] = 'is-valid';
                 error['selectCourtMsg'] = null;
+            }
+            if(selectedSlot.value!=''){
+                if (selectedSlot.value[0].date === '' || selectedSlot.value[0].time === '') {
+                    error['selectSlot'] = 'is-invalid';
+                    error['selectSlotMsg'] = 'Must select a slot';
+                }
+                else {
+                    error['selectSlot'] = 'is-valid';
+                    error['selectSlotMsg'] = null;
+                }
+            }
+            else {
+                error['selectSlot'] = 'is-invalid';
+                error['selectSlotMsg'] = 'Must select a slot';
+            }
+
+            if (error['selectCourt'] === 'is-valid' && error['selectSlot'] === 'is-valid'){
                 step.value=2;
             }
         }
@@ -291,17 +316,35 @@ export default {
                 step.value = 3;
             }
         }
+        function submit() {
+            if (tnc == false) {
+                error['tnc'] = 'is-invalid';
+                error['tncMsg'] = 'Must select a agree to our Term and Condition';
+            } else {
+                axios.post('/facility/book', {
+                    user_id: this.id,
+                    courts_id: this.selectedCourt[0],
+                    remark: this.bookingPurpose,
+                    date: this.selectedSlot[0].date,
+                    time: this.selectedSlot[0].time
+                }).then(res => {
+                    this.bookingId = res.data;
+                }).catch((error) => {
+                    console.log('Looks like there was a problem: \n', error);
+                });
+                step.value = 4;
+            }
+        }
         return{
             step,
             id,name,email,faculty,mobile,
             selectedCourt,selectedSlot,bookingPurpose,tnc,
-            submit,
             step1,
             step2,
             step3,
+            submit, bookingId,
             error,
             buildSlotField,pendingArr, bookedArr
-
         }
     }
 }
