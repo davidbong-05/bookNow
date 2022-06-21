@@ -28,7 +28,6 @@ Route::get('auth/unimas_identity/callback', [App\Http\Controllers\SocialiteUNIMA
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'show'])->name('profile.show');
-    Route::get('/profile/{user:id}/edit', [App\Http\Controllers\ProfilesController::class, 'edit'])->middleware('can:edit,user');
     Route::patch('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'update'])->middleware('can:edit,user');
 
     Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show');
