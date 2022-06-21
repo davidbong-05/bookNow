@@ -15,9 +15,9 @@ class BookingPolicy
     {
         $canBook = true;
 
-        // if ($user->freshBooking()->isNotEmpty() || Carbon::now()->format('D') == 'Fri' || Carbon::now()->format('D') == 'Sat' || Carbon::now()->format('D') == 'Sun') {
-        //     $canBook = false;
-        // };
+        if ($user->freshBooking()->isNotEmpty() || Carbon::now()->format('D') == 'Fri' || Carbon::now()->format('D') == 'Sat' || Carbon::now()->format('D') == 'Sun') {
+            $canBook = false;
+        };
 
         return $canBook;
     }
