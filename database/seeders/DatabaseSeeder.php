@@ -7,6 +7,8 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Courts;
+use App\Models\User;
+use Carbon\Carbon;
 
 class DatabaseSeeder extends Seeder
 {
@@ -17,6 +19,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        User::create([
+            'id'        => 69448,
+            'role'      => 'Admin',
+            'name'      => 'David Bong',
+            'faculty'   => 'FCSIT',
+            'mobileNum' => '01119896950',
+            'email'     => 'davidbong05@gmail.com',
+            'password'  => '12345678',
+            'email_verified_at' => Carbon::now(),
+        ]);
+
         DB::table('facilities')->insert(
             [
                 [
