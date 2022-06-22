@@ -118,6 +118,7 @@
                     </div>
                 </div>
                 <div class="row mb-2">
+                    <small class="text-center" v-show="error['hackerMsg']">{{ error['hackerMsg'] }}</small>
                     <div class="col-3">
                         <label class="form-label">Date: </label>
                     </div>
@@ -255,6 +256,7 @@
 
 <script>
 import { ref, reactive } from 'vue'
+import moment from 'moment';
 import SelectSlotField from './SelectSlotField.vue'
 export default {
     props:[
@@ -276,6 +278,8 @@ export default {
         const bookingPurpose = ref('')
         const tnc = ref(false)
         const bookingId = ref('')
+        const validFirstDate = moment().day('Monday').add(1, 'w').format('YYYY-MM-DD');
+        const validLastDate = moment().day('Friday').add(1, 'w').format('YYYY-MM-DD');
 
         const error = reactive({})
 
@@ -346,20 +350,26 @@ export default {
         function submit() {
             if (tnc == false) {
                 error['tnc'] = 'is-invalid';
-                error['tncMsg'] = 'Must select a agree to our Term and Condition';
+                error['tncMsg'] = 'Must agree to our Term and Condition';
             } else {
-                axios.post('/facility/book', {
-                    user_id: this.id,
-                    courts_id: this.selectedCourt[0],
-                    remark: this.bookingPurpose,
-                    date: this.selectedSlot[0].date,
-                    time: this.selectedSlot[0].time
-                }).then(res => {
-                    this.bookingId = res.data;
-                }).catch((error) => {
-                    console.log('Looks like there was a problem: \n', error);
-                });
-                step.value = 4;
+                if (moment(this.selectedSlot[0].date).isAfter(validLastDate) || moment(this.selectedSlot[0].date).isBefore(validFirstDate)){
+                    error['hacker'] = 'is-invalid';
+                    error['hackerMsg'] = 'Please select a proper date';
+                }
+                else {
+                        axios.post('/facility/book', {
+                            user_id: this.id,
+                            courts_id: this.selectedCourt[0],
+                            remark: this.bookingPurpose,
+                            date: this.selectedSlot[0].date,
+                            time: this.selectedSlot[0].time
+                        }).then(res => {
+                            this.bookingId = res.data;
+                        }).catch((error) => {
+                            console.log('Looks like there was a problem: \n', error);
+                        });
+                        step.value = 4;
+                }
             }
         }
         return{

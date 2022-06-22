@@ -23133,13 +23133,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-/* harmony import */ var _SelectSlotField_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SelectSlotField.vue */ "./resources/js/components/SelectSlotField.vue");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _SelectSlotField_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SelectSlotField.vue */ "./resources/js/components/SelectSlotField.vue");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['user', 'courts'],
   components: {
-    SelectSlotField: _SelectSlotField_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    SelectSlotField: _SelectSlotField_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   setup: function setup(props) {
     var step = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(1);
@@ -23156,6 +23159,8 @@ __webpack_require__.r(__webpack_exports__);
     var bookingPurpose = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var tnc = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
     var bookingId = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
+    var validFirstDate = moment__WEBPACK_IMPORTED_MODULE_1___default()().day('Monday').add(1, 'w').format('YYYY-MM-DD');
+    var validLastDate = moment__WEBPACK_IMPORTED_MODULE_1___default()().day('Friday').add(1, 'w').format('YYYY-MM-DD');
     var error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)({});
     var pendingArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
     var bookedArr = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
@@ -23230,20 +23235,25 @@ __webpack_require__.r(__webpack_exports__);
 
       if (tnc == false) {
         error['tnc'] = 'is-invalid';
-        error['tncMsg'] = 'Must select a agree to our Term and Condition';
+        error['tncMsg'] = 'Must agree to our Term and Condition';
       } else {
-        axios.post('/facility/book', {
-          user_id: this.id,
-          courts_id: this.selectedCourt[0],
-          remark: this.bookingPurpose,
-          date: this.selectedSlot[0].date,
-          time: this.selectedSlot[0].time
-        }).then(function (res) {
-          _this2.bookingId = res.data;
-        })["catch"](function (error) {
-          console.log('Looks like there was a problem: \n', error);
-        });
-        step.value = 4;
+        if (moment__WEBPACK_IMPORTED_MODULE_1___default()(this.selectedSlot[0].date).isAfter(validLastDate) || moment__WEBPACK_IMPORTED_MODULE_1___default()(this.selectedSlot[0].date).isBefore(validFirstDate)) {
+          error['hacker'] = 'is-invalid';
+          error['hackerMsg'] = 'Please select a proper date';
+        } else {
+          axios.post('/facility/book', {
+            user_id: this.id,
+            courts_id: this.selectedCourt[0],
+            remark: this.bookingPurpose,
+            date: this.selectedSlot[0].date,
+            time: this.selectedSlot[0].time
+          }).then(function (res) {
+            _this2.bookingId = res.data;
+          })["catch"](function (error) {
+            console.log('Looks like there was a problem: \n', error);
+          });
+          step.value = 4;
+        }
       }
     }
 
@@ -24643,7 +24653,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 2]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 3"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedCourt[1]), 1
   /* TEXT */
-  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [_hoisted_49, $setup.selectedSlot != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedSlot[0].date), 1
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("small", {
+    "class": "text-center"
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.error['hackerMsg']), 513
+  /* TEXT, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.error['hackerMsg']]]), _hoisted_49, $setup.selectedSlot != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedSlot[0].date), 1
   /* TEXT */
   )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_51, [_hoisted_52, $setup.selectedSlot != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_53, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedSlot[0].time), 1
   /* TEXT */
