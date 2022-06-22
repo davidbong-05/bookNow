@@ -23949,10 +23949,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", _hoisted_3, "Booking ID: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.booking.id), 1
   /* TEXT */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_del_booking_button, {
-    "booking-id": $props.booking.id,
-    style: {
-      "float": "right"
-    }
+    "booking-id": $props.booking.id
   }, null, 8
   /* PROPS */
   , ["booking-id"]), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $props.booking.status === 'Approved' || $props.booking.status === 'Pending']])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, " Facility: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.facility), 1
@@ -25162,7 +25159,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.cancel();
     }),
-    "class": "text-danger"
+    "class": "text-danger",
+    style: {
+      "float": "right"
+    }
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_b_icon_trash)]);
 }
 

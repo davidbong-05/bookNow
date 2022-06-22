@@ -1,5 +1,7 @@
 <template>
-    <a @click="cancel()" class="text-danger"><b-icon-trash/></a>
+    <a @click="cancel()" class="text-danger" style="float: right">
+        <b-icon-trash />
+    </a>
 </template>
 
 <script>

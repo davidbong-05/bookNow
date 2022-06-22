@@ -3,7 +3,7 @@
         <div class="card-header">
             <span class="h6">Booking ID: {{ booking.id }}</span>
             <del-booking-button v-show="booking.status === 'Approved' || booking.status === 'Pending'"
-                :booking-id="booking.id" style="float: right" />
+                :booking-id="booking.id" />
         </div>
         <div class="card-body">
             <ul>
