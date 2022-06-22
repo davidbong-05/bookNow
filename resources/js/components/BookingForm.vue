@@ -5,13 +5,13 @@
         <!-- progressbar -->
         <ul class="me-4" id="progressbar">
             <li class="active" id="date"><strong>Choose Date</strong></li>
-            <li :class="[ step>=2 ? 'active':'']" id="contact"><strong>Contact Info</strong></li>
-            <li :class="[ step>=3 ? 'active':'']" id="confirmation"><strong>Confirmation</strong></li>
-            <li :class="[ step>=4 ? 'active':'']" id="finish"><strong>Finish</strong></li>
+            <li :class="[currStep() >=2 ? 'active':'']" id="contact"><strong>Contact Info</strong></li>
+            <li :class="[currStep() >=3 ? 'active':'']" id="confirmation"><strong>Confirmation</strong></li>
+            <li :class="[currStep() >=4 ? 'active':'']" id="finish"><strong>Finish</strong></li>
         </ul>
 
         <!--page 1-->
-        <fieldset v-show="step==1">
+        <fieldset v-show="currStep() ==1">
             <div class="form-card">
                 <div class="row">
                     <div class="col-3"><label class="form-label">Select Court:</label></div>
@@ -52,7 +52,7 @@
         </fieldset>
 
         <!--page 2-->
-        <fieldset v-show="step==2">
+        <fieldset v-show="currStep() ==2">
             <div class="form-card">
                 <div class="row">
                     <div class="col-3">
@@ -98,7 +98,7 @@
                             type="text" placeholder="e.g. Club Activity" required v-model="bookingPurpose">
                     </div>
                     <small class="text-center" v-show="error['bookingPurposeMsg']">{{ error['bookingPurposeMsg']
-                        }}</small>
+                    }}</small>
                 </div>
             </div>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"
@@ -107,7 +107,7 @@
         </fieldset>
 
         <!--page 3-->
-        <fieldset v-show="step==3">
+        <fieldset v-show="currStep() ==3">
             <div class="form-card">
                 <div class="row mb-2">
                     <div class="col-3">
@@ -203,7 +203,7 @@
         </fieldset>
 
         <!--page 4-->
-        <fieldset v-show="step==4">
+        <fieldset v-show="currStep() ==4">
             <div class="form-card">
                 <h2 class="fs-title text-center">Success !</h2> <br><br>
                 <div class="row justify-content-center">
@@ -272,11 +272,12 @@ export default {
                 console.log('Looks like there was a problem: \n', error);
             });
         }
-
+        function currStep(){
+            return step.value;
+        }
         function step1() {
             step.value = 1;
         }
-
         function step2() {
             if(selectedCourt.value === ''){
                 error['selectCourt'] = 'is-invalid';
@@ -336,7 +337,7 @@ export default {
             }
         }
         return{
-            step,
+            currStep,
             id,name,email,faculty,mobile,
             selectedCourt,selectedSlot,bookingPurpose,tnc,
             step1,
