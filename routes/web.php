@@ -13,10 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes(['register' => false]);
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -30,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'show'])->name('profile.show');
     Route::patch('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'update'])->middleware('can:edit,user');
 
-    Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show');
+    Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show')->middleware('can:edit,user');
     Route::get('/facility/{facility:id}/book-form', [App\Http\Controllers\BookingsController::class, 'create'])->middleware('can:submit-booking,user')->name('booking.create');
     Route::post('/facility/book', [App\Http\Controllers\BookingsController::class, 'store'])->name('booking.store');
 
