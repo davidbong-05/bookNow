@@ -23179,6 +23179,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
 
+    function currStep() {
+      return step.value;
+    }
+
     function step1() {
       step.value = 1;
     }
@@ -23244,7 +23248,7 @@ __webpack_require__.r(__webpack_exports__);
     }
 
     return {
-      step: step,
+      currStep: currStep,
       id: id,
       name: name,
       email: email,
@@ -24514,17 +24518,17 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "margin-top": "10px"
     }
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" progressbar "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_1, [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.step >= 2 ? 'active' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.currStep() >= 2 ? 'active' : '']),
     id: "contact"
   }, _hoisted_4, 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.step >= 3 ? 'active' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.currStep() >= 3 ? 'active' : '']),
     id: "confirmation"
   }, _hoisted_6, 2
   /* CLASS */
   ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", {
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.step >= 4 ? 'active' : '']),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([$setup.currStep() >= 4 ? 'active' : '']),
     id: "finish"
   }, _hoisted_8, 2
   /* CLASS */
@@ -24576,7 +24580,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   })], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.step == 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 2"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.id), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 1]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 2"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.id), 1
   /* TEXT */
   )]), _hoisted_23, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_24, [_hoisted_25, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_26, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.name), 1
   /* TEXT */
@@ -24620,7 +24624,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   })], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.step == 2]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 3"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedCourt[1]), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 2]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 3"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_44, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_45, [_hoisted_46, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_47, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedCourt[1]), 1
   /* TEXT */
   )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_48, [_hoisted_49, $setup.selectedSlot != '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_50, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.selectedSlot[0].date), 1
   /* TEXT */
@@ -24665,11 +24669,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }), _hoisted_77, _hoisted_78], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.step == 3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 4"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [_hoisted_80, _hoisted_81, _hoisted_82, _hoisted_83, _hoisted_84, _hoisted_85, _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Your Booking ID is #" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.bookingId), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 4"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [_hoisted_80, _hoisted_81, _hoisted_82, _hoisted_83, _hoisted_84, _hoisted_85, _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Your Booking ID is #" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.bookingId), 1
   /* TEXT */
   )])])]), _hoisted_90], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.step == 4]])], 32
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 4]])], 32
   /* HYDRATE_EVENTS */
   );
 }
