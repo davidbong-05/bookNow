@@ -24428,10 +24428,27 @@ var _hoisted_78 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_79 = {
+  key: 0,
   "class": "form-card"
 };
 
-var _hoisted_80 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_80 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<h2 class=\"fs-title text-center\" data-v-9a61edbc>Oops, something when wrong...</h2> <br data-v-9a61edbc><br data-v-9a61edbc><div class=\"row justify-content-center\" data-v-9a61edbc><div class=\"col-3\" data-v-9a61edbc><img src=\"https://img.icons8.com/cotton/344/sad.png\" class=\"fit-image\" data-v-9a61edbc></div></div><br data-v-9a61edbc><br data-v-9a61edbc><div class=\"row justify-content-center\" data-v-9a61edbc><div class=\"col-7 text-center\" data-v-9a61edbc><h5 data-v-9a61edbc>Please try again later...</h5></div></div>", 8);
+
+var _hoisted_88 = [_hoisted_80];
+var _hoisted_89 = {
+  key: 1,
+  "class": "form-card"
+};
+
+var _hoisted_90 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<h2 class=\"fs-title text-center\" data-v-9a61edbc>Oops, someone is a head of you</h2> <br data-v-9a61edbc><br data-v-9a61edbc><div class=\"row justify-content-center\" data-v-9a61edbc><div class=\"col-3\" data-v-9a61edbc><img src=\"https://img.icons8.com/cotton/344/sad.png\" class=\"fit-image\" data-v-9a61edbc></div></div><br data-v-9a61edbc><br data-v-9a61edbc><div class=\"row justify-content-center\" data-v-9a61edbc><div class=\"col-7 text-center\" data-v-9a61edbc><h5 data-v-9a61edbc>Please refresh page and select a different slot ...</h5></div></div>", 8);
+
+var _hoisted_98 = [_hoisted_90];
+var _hoisted_99 = {
+  key: 2,
+  "class": "form-card"
+};
+
+var _hoisted_100 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h2", {
     "class": "fs-title text-center"
   }, "Success !", -1
@@ -24439,21 +24456,21 @@ var _hoisted_80 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_81 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_101 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
 
-var _hoisted_82 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_102 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_83 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_103 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_84 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_104 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "row justify-content-center"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
@@ -24466,32 +24483,32 @@ var _hoisted_84 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_85 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_105 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_86 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_106 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
   /* HOISTED */
   );
 });
 
-var _hoisted_87 = {
+var _hoisted_107 = {
   "class": "row justify-content-center"
 };
-var _hoisted_88 = {
+var _hoisted_108 = {
   "class": "col-7 text-center"
 };
 
-var _hoisted_89 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_109 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "We Will Process Your Request Soon", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_90 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_110 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "/"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -24669,9 +24686,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }), _hoisted_77, _hoisted_78], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 4"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_79, [_hoisted_80, _hoisted_81, _hoisted_82, _hoisted_83, _hoisted_84, _hoisted_85, _hoisted_86, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_87, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_88, [_hoisted_89, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Your Booking ID is #" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.bookingId), 1
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 3]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("page 4"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("fieldset", null, [$setup.bookingId == '' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_79, _hoisted_88)) : $setup.bookingId === 'duplicated' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_89, _hoisted_98)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_99, [_hoisted_100, _hoisted_101, _hoisted_102, _hoisted_103, _hoisted_104, _hoisted_105, _hoisted_106, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_107, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_108, [_hoisted_109, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h6", null, "Your Booking ID is #" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.bookingId), 1
   /* TEXT */
-  )])])]), _hoisted_90], 512
+  )])])])), _hoisted_110], 512
   /* NEED_PATCH */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vShow, $setup.currStep() == 4]])], 32
   /* HYDRATE_EVENTS */
@@ -35529,7 +35546,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#msform[data-v-9a61edbc] {\n    text-align: center;\n    position: relative;\n    margin-top: 10px;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    border-radius: 0px;\n    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);\n    padding: 20px 40px 30px 40px;\n    box-sizing: border-box;\n    width: 94%;\n    margin: 0 3% 20px 3%;\n    position: relative;\n}\n#msform fieldset[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    box-sizing: border-box;\n    width: 100%;\n    margin: 0;\n    padding-bottom: 20px;\n    position: relative;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    text-align: left;\n    color: #000000;\n    font-weight: 700;\n}\n#progressbar[data-v-9a61edbc] {\n    margin-bottom: 30px;\n    overflow: hidden;\n    color: lightgrey;\n}\n#progressbar .active[data-v-9a61edbc] {\n    color: #000000;\n}\n#progressbar li[data-v-9a61edbc] {\n    list-style-type: none;\n    font-size: 12px;\n    width: 25%;\n    float: left;\n    position: relative;\n}\n#progressbar #date[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f073\";\n}\n#progressbar #contact[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f007\";\n}\n#progressbar #confirmation[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f15c\";\n}\n#progressbar #finish[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f00c\";\n}\n#progressbar li[data-v-9a61edbc]:before {\n    width: 50px;\n    height: 50px;\n    line-height: 45px;\n    display: block;\n    font-size: 18px;\n    color: #ffffff;\n    background: lightgray;\n    border-radius: 50%;\n    margin: 0 auto 10px auto;\n    padding: 2px;\n}\n#progressbar li[data-v-9a61edbc]:after {\n    content: \"\";\n    width: 100%;\n    height: 2px;\n    background: lightgray;\n    position: absolute;\n    left: 0;\n    top: 25px;\n    z-index: -1;\n}\n#progressbar li.active[data-v-9a61edbc]:before,\n#progressbar li.active[data-v-9a61edbc]:after {\n    background: #ff0063;\n}\n#msform .action-button[data-v-9a61edbc] {\n    width: 100px;\n    background: #ff0063;\n    font: inherit;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .action-button[data-v-9a61edbc]:hover,\n#msform .action-button[data-v-9a61edbc]:focus {\n    box-shadow: 0 0 0 2px white, 0 0 0 3px #ff0063;\n}\n#msform .action-button-previous[data-v-9a61edbc] {\n    width: 100px;\n    background: #444444;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .big[data-v-9a61edbc] {\n    text-transform: uppercase !important;\n    font-weight: 900px;\n}\n#msform small[data-v-9a61edbc]{\n    color: crimson;\n    -webkit-animation: shake-9a61edbc 0.8s;\n            animation: shake-9a61edbc 0.8s;\n    -webkit-animation-iteration-count: 1;\n            animation-iteration-count: 1;\n}\n#msform fieldset .booked[data-v-9a61edbc] {\n    background-color: #dc3545;\n}\n#msform fieldset .pending[data-v-9a61edbc] {\n    background-color: #ffc107;\n}\n.indicator[data-v-9a61edbc] {\n    font-weight: lighter;\n    color: #616161;\n}\n.box[data-v-9a61edbc] {\n    height: 1em;\n    width: 1.5em;\n    margin-top: 0.3em;\n    border: 1px solid black;\n    border-radius: 2px;\n    clear: both;\n}\n@-webkit-keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n@keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#msform[data-v-9a61edbc] {\n    text-align: center;\n    position: relative;\n    margin-top: 10px;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    border-radius: 0px;\n    box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);\n    padding: 20px 40px 30px 40px;\n    box-sizing: border-box;\n    width: 94%;\n    margin: 0 3% 20px 3%;\n    position: relative;\n}\n#msform fieldset[data-v-9a61edbc] {\n    background: white;\n    border: 0 none;\n    box-sizing: border-box;\n    width: 100%;\n    margin: 0;\n    padding-bottom: 20px;\n    position: relative;\n}\n#msform fieldset .form-card[data-v-9a61edbc] {\n    text-align: left;\n    color: #000000;\n    font-weight: 700;\n}\n#progressbar[data-v-9a61edbc] {\n    margin-bottom: 30px;\n    overflow: hidden;\n    color: lightgrey;\n}\n#progressbar .active[data-v-9a61edbc] {\n    color: #000000;\n}\n#progressbar li[data-v-9a61edbc] {\n    list-style-type: none;\n    font-size: 12px;\n    width: 25%;\n    float: left;\n    position: relative;\n}\n#progressbar #date[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f073\";\n}\n#progressbar #contact[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f007\";\n}\n#progressbar #confirmation[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f15c\";\n}\n#progressbar #finish[data-v-9a61edbc]:before {\n    font-family: FontAwesome;\n    content: \"\\f00c\";\n}\n#progressbar li[data-v-9a61edbc]:before {\n    width: 50px;\n    height: 50px;\n    line-height: 45px;\n    display: block;\n    font-size: 18px;\n    color: #ffffff;\n    background: lightgray;\n    border-radius: 50%;\n    margin: 0 auto 10px auto;\n    padding: 2px;\n}\n#progressbar li[data-v-9a61edbc]:after {\n    content: \"\";\n    width: 100%;\n    height: 2px;\n    background: lightgray;\n    position: absolute;\n    left: 0;\n    top: 25px;\n    z-index: -1;\n}\n#progressbar li.active[data-v-9a61edbc]:before,\n#progressbar li.active[data-v-9a61edbc]:after {\n    background: #ff0063;\n}\n#msform .action-button[data-v-9a61edbc] {\n    width: 100px;\n    background: #ff0063;\n    font: inherit;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .action-button[data-v-9a61edbc]:hover,\n#msform .action-button[data-v-9a61edbc]:focus {\n    box-shadow: 0 0 0 2px white, 0 0 0 3px #ff0063;\n}\n#msform .action-button-previous[data-v-9a61edbc] {\n    width: 100px;\n    background: #444444;\n    font-weight: bold;\n    color: white;\n    border: 0 none;\n    border-radius: 10px;\n    cursor: pointer;\n    padding: 10px 5px;\n    margin: 10px 5px;\n}\n#msform .big[data-v-9a61edbc] {\n    text-transform: uppercase !important;\n    font-weight: 900px;\n}\n#msform small[data-v-9a61edbc]{\n    color: crimson;\n    -webkit-animation: shake-9a61edbc 0.8s;\n            animation: shake-9a61edbc 0.8s;\n    -webkit-animation-iteration-count: 1;\n            animation-iteration-count: 1;\n}\n#msform fieldset .booked[data-v-9a61edbc] {\n    background-color: #dc3545;\n}\n#msform fieldset .pending[data-v-9a61edbc] {\n    background-color: #ffc107;\n}\n.indicator[data-v-9a61edbc] {\n    font-weight: lighter;\n    color: #616161;\n}\n.box[data-v-9a61edbc] {\n    height: 1em;\n    width: 1.5em;\n    margin-top: 0.3em;\n    border: 1px solid black;\n    border-radius: 2px;\n    clear: both;\n}\n.fit-image[data-v-9a61edbc] {\n    width: 100%;\n    -o-object-fit: cover;\n    object-fit: cover;\n}\n@-webkit-keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n@keyframes shake-9a61edbc {\n10%,\n    90% {\n        transform: translate3d(-1px, 0, 0);\n}\n20%,\n    80% {\n        transform: translate3d(2px, 0, 0);\n}\n30%,\n    50%,\n    70% {\n        transform: translate3d(-4px, 0, 0);\n}\n40%,\n    60% {\n        transform: translate3d(4px, 0, 0);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

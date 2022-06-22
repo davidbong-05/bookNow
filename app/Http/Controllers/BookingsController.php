@@ -7,6 +7,7 @@ use App\Models\Facilities;
 use App\Models\Bookings;
 use App\Models\Courts;
 use App\Models\User;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 
 class BookingsController extends Controller
 {
@@ -35,15 +36,24 @@ class BookingsController extends Controller
             'remark' => 'required',
         ]);
 
-        Bookings::create([
-            'user_id'   => $validated['user_id'],
-            'courts_id' => $validated['courts_id'],
-            'date'      => $validated['date'],
-            'time'      => $validated['time'],
-            'remark'    => $validated['remark'],
-            'status'    => 'Pending',
-        ]);
-        return current_user()->freshBooking()->first()->id;
+        $exist = Bookings::where('date', $validated['date'])
+            ->where('time', $validated['time'])
+            ->where(function (Builder $query) {
+                return $query->where('status', 'Approved')
+                    ->orWhere('status', 'Pending');
+            })->exists();
+        if (!$exist) {
+            Bookings::create([
+                'user_id'   => $validated['user_id'],
+                'courts_id' => $validated['courts_id'],
+                'date'      => $validated['date'],
+                'time'      => $validated['time'],
+                'remark'    => $validated['remark'],
+                'status'    => 'Pending',
+            ]);
+
+            return current_user()->freshBooking()->first()->id;
+        } else return 'duplicated';
     }
 
     public function update(Bookings $booking)

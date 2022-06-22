@@ -98,7 +98,7 @@
                             type="text" placeholder="e.g. Club Activity" required v-model="bookingPurpose">
                     </div>
                     <small class="text-center" v-show="error['bookingPurposeMsg']">{{ error['bookingPurposeMsg']
-                    }}</small>
+                        }}</small>
                 </div>
             </div>
             <input type="button" name="previous" class="previous action-button-previous" value="Previous"
@@ -204,7 +204,33 @@
 
         <!--page 4-->
         <fieldset v-show="currStep() ==4">
-            <div class="form-card">
+            <div class="form-card" v-if="bookingId==''">
+                <h2 class="fs-title text-center">Oops, something when wrong...</h2> <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-3"> <img src="https://img.icons8.com/cotton/344/sad.png" class="fit-image">
+                    </div>
+                </div>
+                <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-7 text-center">
+                        <h5>Please try again later...</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card" v-else-if="bookingId === 'duplicated'">
+                <h2 class="fs-title text-center">Oops, someone is a head of you</h2> <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-3"> <img src="https://img.icons8.com/cotton/344/sad.png" class="fit-image">
+                    </div>
+                </div>
+                <br><br>
+                <div class="row justify-content-center">
+                    <div class="col-7 text-center">
+                        <h5>Please refresh page and select a different slot ...</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="form-card" v-else>
                 <h2 class="fs-title text-center">Success !</h2> <br><br>
                 <div class="row justify-content-center">
                     <div class="col-3"> <img src="https://img.icons8.com/color/96/000000/ok--v2.png" class="fit-image">
@@ -512,6 +538,12 @@ export default {
     border: 1px solid black;
     border-radius: 2px;
     clear: both;
+}
+
+.fit-image {
+    width: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
 }
 
 @keyframes shake {
