@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('remark');
             $table->date('date');
             $table->time('time');
-            $table->char('status');
+            $table->string('status');
             $table->timestamps();
         });
     }
