@@ -26,11 +26,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'show'])->name('profile.show');
     Route::patch('/profile/{user:id}', [App\Http\Controllers\ProfilesController::class, 'update'])->middleware('can:edit,user');
 
-    Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->name('booking.show')->middleware('can:edit,user');
+    Route::get('/myBooking/{user:id}', [App\Http\Controllers\BookingsController::class, 'show'])->middleware('can:edit,user')->name('booking.show');
     Route::get('/facility/{facility:id}/book-form', [App\Http\Controllers\BookingsController::class, 'create'])->middleware('can:submit-booking,user')->name('booking.create');
     Route::post('/facility/book', [App\Http\Controllers\BookingsController::class, 'store'])->name('booking.store');
 
-    Route::delete('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'destroy'])->name('booking.destroy');
+    Route::patch('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'update'])->name('booking.update');
+    // Route::delete('/myBooking/{booking}', [App\Http\Controllers\BookingsController::class, 'destroy'])->name('booking.destroy');
 
     Route::post('/facility/{facility:id}/review', [App\Http\Controllers\ReviewsController::class, 'store'])->name('review.store');
     // Route::middleware('admin')->group(function () {

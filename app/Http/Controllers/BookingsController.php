@@ -46,9 +46,19 @@ class BookingsController extends Controller
         return current_user()->freshBooking()->first()->id;
     }
 
+    public function update(Bookings $booking)
+    {
+        $attributes = request()->validate([
+            'status' => ['required']
+        ]);
+        $booking->update($attributes);
+
+        return 'Success';
+    }
+
     public function destroy(Bookings $booking)
     {
         $booking->delete();
-        return back();
+        return 'deleted';
     }
 }

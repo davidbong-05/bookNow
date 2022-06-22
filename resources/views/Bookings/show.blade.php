@@ -1,7 +1,8 @@
 <x-master>
     <div class="container px-4 py-4">
         @forelse ($bookings as $booking)
-            @include('_booking')
+            <booking-card :booking="{{ $booking }}" :facility='"{{ $booking->courts->facilities->name }}"'
+                :court='"{{ $booking->courts->name }}"' />
         @empty
             <p class="text-gray-500 p-4">No booking yet...</p>
         @endforelse
