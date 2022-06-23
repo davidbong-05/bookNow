@@ -23171,14 +23171,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/api/bookings/pending', {
         id: selectedCourt.value[0]
       }).then(function (res) {
-        _this.pendingArr = res.data;
+        _this.pendingArr = res.data.data;
       })["catch"](function (error) {
         console.log('Looks like there was a problem: \n', error);
       });
       axios.post('/api/bookings/booked', {
         id: selectedCourt.value[0]
       }).then(function (res) {
-        _this.bookedArr = res.data;
+        _this.bookedArr = res.data.data;
       })["catch"](function (error) {
         console.log('Looks like there was a problem: \n', error);
       });

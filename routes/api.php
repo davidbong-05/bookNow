@@ -2,6 +2,8 @@
 
 use App\Models\Announcements;
 use App\Models\Courts;
+use App\Http\Resources\Pending as PendingResource;
+use App\Http\Resources\Booked as BookedResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,8 +25,8 @@ Route::get('announcements', function () {
     return Announcements::limit(10)->latest()->get();
 });
 Route::post('bookings/pending', function (Request $request) {
-    return Courts::find($request->input('id'))->pending();
+    return new PendingResource(Courts::find($request->input('id')));
 });
 Route::post('bookings/booked', function (Request $request) {
-    return Courts::find($request->input('id'))->booked();
+    return new BookedResource(Courts::find($request->input('id')));
 });

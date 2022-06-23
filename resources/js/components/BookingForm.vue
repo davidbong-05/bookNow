@@ -290,14 +290,14 @@ export default {
 
             axios.post('/api/bookings/pending', { id: selectedCourt.value[0] }
             ).then(res => {
-                this.pendingArr=res.data
+                this.pendingArr=res.data.data
             }).catch((error) => {
                 console.log('Looks like there was a problem: \n', error);
             });
 
             axios.post('/api/bookings/booked', { id: selectedCourt.value[0] }
             ).then(res => {
-                this.bookedArr = res.data
+                this.bookedArr = res.data.data
             }).catch((error) => {
                 console.log('Looks like there was a problem: \n', error);
             });
