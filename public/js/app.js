@@ -25242,7 +25242,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     style: {
       "width": "20rem",
       "height": "15rem"
-    }
+    },
+    loading: "lazy"
   }, null, 8
   /* PROPS */
   , _hoisted_2), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.facility.name), 1
