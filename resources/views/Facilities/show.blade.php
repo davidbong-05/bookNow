@@ -43,7 +43,7 @@
                 <div class="row gy-4">
                     <div class="col-lg-6">
                         <div class="my-3 text-center">
-                            <img src="{{ $facility->image }}" class="card-img" alt="facility_photo"
+                            <img src="{{ $facility->image }}" class="card-img img-fluid" alt="facility_photo"
                                 style="width: 35rem; height :20rem">
                         </div>
                     </div>
