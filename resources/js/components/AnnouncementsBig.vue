@@ -44,7 +44,7 @@ import { BIconChevronDoubleDown, BIconMegaphone} from 'bootstrap-icons-vue';
         },
         data() {
             return {
-                bgImg: { backgroundImage: 'url('+this.bgImgUrl+')' },
+                bgImg: { background: 'url('+this.bgImgUrl+') no-repeat center' },
                 announcements: [],
             };
         },

@@ -23008,7 +23008,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       bgImg: {
-        backgroundImage: 'url(' + this.bgImgUrl + ')'
+        background: 'url(' + this.bgImgUrl + ') no-repeat center'
       },
       announcements: []
     };
