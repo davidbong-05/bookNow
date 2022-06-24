@@ -25222,7 +25222,7 @@ var _withScopeId = function _withScopeId(n) {
 };
 
 var _hoisted_1 = {
-  "class": "card bg-dark text-white rounded my-4 mx-4 button",
+  "class": "card bg-dark text-white rounded my-3 mx-3 button",
   style: {
     "width": "20rem",
     "height": "15rem"
@@ -35614,7 +35614,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.button[data-v-c5693284]{\n    transition: transform 0.1s ease-out, box-shadow;\n    box-shadow: -6px 6px 0 0 #ff0063;\n}\n.button[data-v-c5693284]:active{\n    box-shadow: 0 0 0 0 #ff0063;\n    transform: translateX(-6px) translateY(6px);\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.button[data-v-c5693284]{\n    transition: transform 0.1s ease-out, box-shadow;\n}\n.button[data-v-c5693284]:hover{\n    box-shadow: -6px 6px 0 0 #ff0063;\n}\n.button[data-v-c5693284]:active{\n    box-shadow: 0 0 0 0 #ff0063;\n    transform: translateX(-6px) translateY(6px);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
