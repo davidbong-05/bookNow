@@ -23069,36 +23069,28 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['status', 'facilityId'],
-  data: function data() {
-    if (this.status == 0) {
-      return {
-        disabled: false,
-        title: "Click here to Book Now!",
-        color: "btn-primary",
-        route: "/facility/" + this.facilityId + "/book-form"
-      };
-    } else if (this.status == 1) {
-      return {
-        disabled: true,
-        title: "Please log in first",
-        color: "btn-secondary",
-        route: "/login"
-      };
-    } else if (this.status == 2) {
-      return {
-        disabled: true,
-        title: "Oops, it seems like you already reached your booking limit",
-        color: "btn-secondary",
-        route: "#"
-      };
-    } else if (this.status == 3) {
-      return {
-        disabled: true,
-        title: "Please come back on Monday",
-        color: "btn-secondary",
-        route: "#"
-      };
+  setup: function setup(props) {
+    var button = {
+      disabled: '',
+      title: '',
+      desc: '',
+      color: '',
+      route: ''
+    };
+
+    if (props.status == 0) {
+      button.disabled = false, button.title = "Book Now", button.desc = "Click here to Book Now!", button.color = "btn-primary", button.route = "/facility/" + props.facilityId + "/book-form";
+    } else if (props.status == 1) {
+      button.disabled = true, button.title = "Login to Book ", button.desc = "Please log in first", button.color = "btn-secondary", button.route = "/login";
+    } else if (props.status == 2) {
+      button.disabled = true, button.title = "Max", button.desc = "Oops, it seems like you already reached your booking limit", button.color = "btn-secondary", button.route = "#";
+    } else if (props.status == 3) {
+      button.disabled = true, button.title = "Close", button.desc = "Please come back on Monday", button.color = "btn-secondary", button.route = "#";
     }
+
+    return {
+      button: button
+    };
   }
 });
 
@@ -23903,20 +23895,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-var _hoisted_1 = ["href", "title"];
+var _hoisted_1 = ["href", "desc"];
 var _hoisted_2 = ["disabled"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
-    href: _ctx.route,
+    href: $setup.button.route,
     "data-bs-toggle": "tooltip",
     "data-bs-placement": "bottom",
-    title: _ctx.title
+    desc: $setup.button.desc
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn mt-1 w-100", _ctx.color]),
-    disabled: _ctx.disabled
-  }, "Book Now", 10
-  /* CLASS, PROPS */
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn mt-1 w-100", $setup.button.color]),
+    disabled: $setup.button.disabled
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.button.title), 11
+  /* TEXT, CLASS, PROPS */
   , _hoisted_2)], 8
   /* PROPS */
   , _hoisted_1);
