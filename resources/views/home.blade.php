@@ -1,6 +1,6 @@
 <x-master>
     <div class="container-fluid">
-        <div class="row">
+        <div class="row" id="announcement">
             <announcements-big bg-img-url="{{ asset('/img/background.jpg') }}"></announcements-big>
         </div>
         <div class="row" id="facilities">

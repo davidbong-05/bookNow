@@ -1,7 +1,9 @@
 <template>
     <div class="d-flex align-items-center" style="background-color: rgb(242, 132, 158, 0.80);">
-        <div class=" h2 ms-3 me-1">
-            <BIconMegaphone />
+        <div class="h2 ms-3 me-1">
+            <a href="\#announcement" class="link-dark">
+                <BIconMegaphone></BIconMegaphone>
+            </a>
         </div>
         <div v-if="announcements!=''">
             <Vue3Marquee :duration="20" :pause-on-hover="true" :clone="true">
