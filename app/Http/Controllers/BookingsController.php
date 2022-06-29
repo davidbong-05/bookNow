@@ -36,7 +36,8 @@ class BookingsController extends Controller
             'remark' => 'required',
         ]);
 
-        $exist = Bookings::where('date', $validated['date'])
+        $exist = Bookings::where('courts_id', $validated['courts_id'])
+            ->where('date', $validated['date'])
             ->where('time', $validated['time'])
             ->where(function (Builder $query) {
                 return $query->where('status', 'Approved')
