@@ -26,6 +26,7 @@
     "dependencies": {
         "bootstrap-icons-vue": "^1.8.1",
         "moment": "^2.29.3",
-        "sweetalert": "^2.1.2"
+        "sweetalert": "^2.1.2",
+        "vue3-marquee": "^3.0.7"
     }
 }
