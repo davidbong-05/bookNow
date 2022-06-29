@@ -1,4 +1,6 @@
 <x-master>
+
+    <announcements-small></announcements-small>
     <div class="py-4">
         <!-- ======= Breadcrumbs ======= -->
         <section aria-label="breadcrumb">
@@ -71,5 +73,4 @@
         </section><!-- End Portfolio Details Section -->
     </div>
     {{-- @include('_reviews') --}}
-    <announcements-small></announcements-small>
 </x-master>
