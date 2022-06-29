@@ -16,8 +16,11 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
             ">
-                <div v-if="announcements">
-                    <announcement v-for="announcement in announcements" :announcement="announcement"></announcement>
+                <div v-if="announcements!=''">
+                    <p v-for="announcement in announcements" class="row">
+                        <span class="col-2">{{ formatDate (announcement.created_at)}}</span>
+                        <span class="col"><b>{{ announcement.body }}</b></span>
+                    </p>
                 </div>
                 <div v-else>
                     <p class="text-gray">No announcement yet...</p>
@@ -35,6 +38,8 @@
 </template>
 
 <script>
+import { ref,onMounted } from 'vue';
+import moment from 'moment';
 import { BIconMegaphone} from 'bootstrap-icons-vue';
 
     export default {
@@ -42,17 +47,27 @@ import { BIconMegaphone} from 'bootstrap-icons-vue';
         components: {
             BIconMegaphone,
         },
-        data() {
-            return {
-                bgImg: { background: 'url('+this.bgImgUrl+') no-repeat center' },
-                announcements: [],
-            };
-        },
-        mounted() {
-            axios.get('/api/announcements').then(res => {
-                this.announcements = res.data
+        setup(props) {
+            const bgImg = { background: 'url(' + props.bgImgUrl + ') no-repeat center' }
+            const announcements = ref('')
+            onMounted(() => {
+                axios.get('/api/announcements'
+                ).then(res => {
+                    announcements.value = res.data;
+                }).catch((error) => {
+                    console.log('Looks like there was a problem: \n', error);
+                });
             })
-        }
+
+            function formatDate(value) {
+                return moment(value).format('Do MMMM YYYY, h:mm a');
+            }
+
+            return {
+                bgImg, announcements, formatDate
+            }
+        },
+
     }
 </script>
 <style scoped>
