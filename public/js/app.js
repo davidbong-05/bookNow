@@ -23626,9 +23626,11 @@ __webpack_require__.r(__webpack_exports__);
 
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(pendingArr, function (newPendingArr) {
       pendingDate.value = getPending();
+      checkedSlot.value.splice(0);
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(bookedArr, function (newBookedArr) {
       bookedDate.value = getBooked();
+      checkedSlot.value.splice(0);
     });
 
     function getPending() {

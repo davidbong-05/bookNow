@@ -66,10 +66,12 @@ export default {
 
         watch(pendingArr, (newPendingArr) => {
             pendingDate.value=getPending();
+            checkedSlot.value.splice(0);
         })
 
         watch(bookedArr,(newBookedArr)=>{
             bookedDate.value=getBooked();
+            checkedSlot.value.splice(0);
         })
 
         function getPending() {
