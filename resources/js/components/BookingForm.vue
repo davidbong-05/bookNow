@@ -365,10 +365,10 @@ export default {
                             time: this.selectedSlot[0].time
                         }).then(res => {
                             this.bookingId = res.data;
+                            step.value = 4;
                         }).catch((error) => {
                             console.log('Looks like there was a problem: \n', error);
                         });
-                        step.value = 4;
                 }
             }
         }

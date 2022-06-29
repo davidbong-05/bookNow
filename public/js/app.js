@@ -23248,10 +23248,10 @@ __webpack_require__.r(__webpack_exports__);
             time: this.selectedSlot[0].time
           }).then(function (res) {
             _this2.bookingId = res.data;
+            step.value = 4;
           })["catch"](function (error) {
             console.log('Looks like there was a problem: \n', error);
           });
-          step.value = 4;
         }
       }
     }
